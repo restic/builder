@@ -23,4 +23,5 @@ RUN useradd -m -d $HOME -s /bin/bash build
 USER build
 WORKDIR $HOME
 
-#ENTRYPOINT ["go"]
+ADD build.sh /usr/local/bin/build.sh
+ENTRYPOINT ["/usr/local/bin/build.sh"]

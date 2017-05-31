@@ -9,16 +9,20 @@ release="$1"
 
 set -e
 
+startdir="$PWD"
 tempdir=$(mktemp -d --tmpdir restic-release-XXXXXX)
 echo "path is ${tempdir}"
-outputdir=$(pwd)/build-$(date +%Y%m%d-%H%M%S)
-mkdir "$outputdir"
-echo "outputdir is $outputdir"
 
 (cd "$tempdir"; tar xz --strip-components=1) < "$release"
 cd "$tempdir"
 version=$(cat VERSION)
 echo "version is $version"
+
+outputdir="$startdir/restic-$version-$(date +%Y%m%d-%H%M%S)"
+mkdir "$outputdir"
+echo "outputdir is $outputdir"
+
+cp "$startdir/$release" "$outputdir"
 
 for R in       \
     darwin/386     \
@@ -58,6 +62,6 @@ for R in       \
 done
 
 cd "$outputdir"
-sha256sum restic_*.{zip,bz2} restic-$version.tar.gz > SHA256SUMS
+sha256sum restic_*.{zip,bz2} "$release" > SHA256SUMS
 
 echo "done"
