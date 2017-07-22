@@ -33,6 +33,17 @@ The binaries will be created in a sub-directory of the current directory, like t
 
 If all goes well then you've produced exactly the same binaries as in the official release.
 
+Verifying Windows Binaries
+--------------------------
+
+The Windows binaries are packed as a ZIP file, which unfortunately includes a
+time stamp, so you'll end up with different ZIP files than the original
+release. So in order to verify that the released binaries are indeed authentic,
+download the ZIP files, verify the authenticity (via `sha256sums` and `gpg`)
+then extract the EXE file. Rebuild the binaries using this docker container,
+extract the EXE file from the ZIP and you'll end up with two byte identical
+files.
+
 Software
 ========
 
