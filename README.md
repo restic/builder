@@ -6,11 +6,11 @@ Instructions
 
 First, build the docker container:
 
-    $ docker build -t restic/build .
+    $ docker build -t restic/builder .
 
 Then run the build as follows, passing the restic source code as a `.tar.gz` file:
 
-    $ docker run --rm --volume $PWD:/home/build restic/build restic-0.6.1.tar.gz
+    $ docker run --rm --volume $PWD:/home/build restic/builder restic-0.6.1.tar.gz
 
 The binaries will be created in a sub-directory of the current directory, like this:
 
