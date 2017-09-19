@@ -10,9 +10,11 @@ RUN apt-get install -y --no-install-recommends bzip2 zip
 ENV HOME /home/build
 RUN useradd -m -d $HOME -s /bin/bash build
 
+ADD build.sh /usr/local/bin/build.sh
+RUN chmod 755 /usr/local/bin/build.sh
+
 # run everything below as user build
 USER build
 WORKDIR $HOME
 
-ADD build.sh /usr/local/bin/build.sh
 ENTRYPOINT ["/usr/local/bin/build.sh"]
