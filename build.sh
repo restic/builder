@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo "Go version is $(go version)"
+
 if [[ "$#" != 1 ]]; then
     echo "usage: build.sh restic-X-Y-Z.tar.gz" >&2
     exit 1
