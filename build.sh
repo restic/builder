@@ -54,6 +54,12 @@ for R in       \
 
     go run build.go --goos $os --goarch $arch --output "${filename}"
     if [[ "$os" == "windows" ]]; then
+        # set the same timestamp as the version file for the resulting exe, so
+        # that we get reproducible builds (unfortunately ZIP files contain
+        # several timestamp that would otherwise be different ever time restic
+        # is compiled).
+        touch --reference VERSION ${filename}
+
         zip ${filename%.exe}.zip ${filename}
         rm ${filename}
         mv ${filename%.exe}.zip ${outputdir}
