@@ -60,7 +60,7 @@ for R in       \
         # is compiled).
         touch --reference VERSION ${filename}
 
-        zip ${filename%.exe}.zip ${filename}
+        zip -X ${filename%.exe}.zip ${filename}
         rm ${filename}
         mv ${filename%.exe}.zip ${outputdir}
     else
