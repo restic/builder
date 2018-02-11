@@ -64,6 +64,7 @@ for R in       \
         rm ${filename}
         mv ${filename%.exe}.zip ${outputdir}
     else
+        chmod +x ${filename}
         bzip2 ${filename}
         mv ${filename}.bz2 ${outputdir}
     fi
