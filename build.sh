@@ -2,14 +2,16 @@
 
 go version
 
-if [[ "$1" == "-" ]]; then
-    exit 0
-fi
+# enable strict mode
+set -euo pipefail
+IFS=$'\n\t'
 
 if [[ "$#" != 1 ]]; then
     echo "usage: build.sh restic-X-Y-Z.tar.gz" >&2
     exit 1
 fi
+
+export GOCACHE="/tmp/.cache"
 
 release="$1"
 
