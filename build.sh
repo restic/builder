@@ -44,6 +44,7 @@ for R in       \
     linux/arm64    \
     openbsd/386   \
     openbsd/amd64 \
+    solaris/amd64 \
     windows/386    \
     windows/amd64  \
     ; do \
