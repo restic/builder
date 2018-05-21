@@ -33,6 +33,12 @@ The binaries will be created in a sub-directory of the current directory, like t
 
 If all goes well then you've produced exactly the same binaries as in the official release.
 
+The container has the official Go compiler installed in `/usr/local/go`. After
+extracting the `tar.gz` into a temporary directory, the script `build.sh`
+builds the binaries by running `build.go` like this:
+
+    $ go run build.go --goos $os --goarch $arch --tempdir /tmp/gopath --output restic_$os_$arch
+
 Verifying Windows Binaries
 --------------------------
 
