@@ -19,7 +19,8 @@ set -e
 
 startdir="$PWD"
 tempdir=$(mktemp -d --tmpdir restic-release-XXXXXX)
-echo "path is ${tempdir}"
+tempgopath="/tmp/gopath"
+echo "tempdir is ${tempdir}, gopath is ${tempgopath}"
 
 (cd "$tempdir"; tar xz --strip-components=1) < "$release"
 cd "$tempdir"
@@ -58,7 +59,11 @@ for R in       \
 
     echo $filename
 
-    go run build.go --goos $os --goarch $arch --output "${filename}"
+    # make sure the temporary gopath is empty
+    rm -rf "${tempgopath}"
+
+    # build the binary
+    go run build.go --goos $os --goarch $arch --tempdir "${tempgopath}" --output "${filename}"
     if [[ "$os" == "windows" ]]; then
         # set the same timestamp as the version file for the resulting exe, so
         # that we get reproducible builds (unfortunately ZIP files contain
