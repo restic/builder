@@ -4,8 +4,8 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-latest="go1.10.2.linux-amd64.tar.gz"
-hash="4b677d698c65370afa33757b6954ade60347aaca310ea92a63ed717d7cb0c2ff"
+latest="go1.10.3.linux-amd64.tar.gz"
+hash="fa1b0e45d3b647c252f51f5e1204aba049cde4af177ef9f2181f43004f901035"
 
 # download and install Go
 cd /usr/local
