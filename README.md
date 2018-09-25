@@ -10,25 +10,25 @@ First, build the docker container:
 
 Then run the build as follows, passing the restic source code as a `.tar.gz` file:
 
-    $ docker run --rm --volume $PWD:/home/build restic/builder build.sh restic-0.6.1.tar.gz
+    $ docker run --rm --volume $PWD:/home/build restic/builder build.sh restic-0.9.2.tar.gz
 
 The binaries will be created in a sub-directory of the current directory, like this:
 
-    $ ls -al restic-0.6.1-20170531-202748
-    restic_0.6.1_darwin_386.bz2
-    restic_0.6.1_darwin_amd64.bz2
-    restic_0.6.1_freebsd_386.bz2
-    restic_0.6.1_freebsd_amd64.bz2
-    restic_0.6.1_freebsd_arm.bz2
-    restic_0.6.1_linux_386.bz2
-    restic_0.6.1_linux_amd64.bz2
-    restic_0.6.1_linux_arm64.bz2
-    restic_0.6.1_linux_arm.bz2
-    restic_0.6.1_openbsd_386.bz2
-    restic_0.6.1_openbsd_amd64.bz2
-    restic-0.6.1.tar.gz
-    restic_0.6.1_windows_386.zip
-    restic_0.6.1_windows_amd64.zip
+    $ ls -1 restic-0.9.2-20180923-153802
+    restic_0.9.2_darwin_386.bz2
+    restic_0.9.2_darwin_amd64.bz2
+    restic_0.9.2_freebsd_386.bz2
+    restic_0.9.2_freebsd_amd64.bz2
+    restic_0.9.2_freebsd_arm.bz2
+    restic_0.9.2_linux_386.bz2
+    restic_0.9.2_linux_amd64.bz2
+    restic_0.9.2_linux_arm64.bz2
+    restic_0.9.2_linux_arm.bz2
+    restic_0.9.2_openbsd_386.bz2
+    restic_0.9.2_openbsd_amd64.bz2
+    restic-0.9.2.tar.gz
+    restic_0.9.2_windows_386.zip
+    restic_0.9.2_windows_amd64.zip
     SHA256SUMS
 
 If all goes well then you've produced exactly the same binaries as in the official release.
