@@ -1,7 +1,7 @@
 # This Dockerfiles configures a container that is used to compile the released
 # restic binaries.
 
-FROM debian
+FROM debian:stable
 
 RUN apt-get update
 RUN apt-get install -y --no-install-recommends ca-certificates wget bzip2 zip
