@@ -63,7 +63,7 @@ for R in       \
     rm -rf "${tempgopath}"
 
     # build the binary
-    go run build.go --goos $os --goarch $arch --tempdir "${tempgopath}" --output "${filename}"
+    go run -mod=vendor build.go --goos $os --goarch $arch --tempdir "${tempgopath}" --output "${filename}"
     if [[ "$os" == "windows" ]]; then
         # set the same timestamp as the version file for the resulting exe, so
         # that we get reproducible builds (unfortunately ZIP files contain
