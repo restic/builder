@@ -16,6 +16,25 @@ RUN download.sh
 ENV HOME /home/build
 RUN useradd -m -d $HOME -s /bin/bash build
 
+# create directory to hold the source code
+RUN mkdir /restic
+RUN chown build /restic
+
+# create directory to save the resulting files to
+RUN mkdir /output
+RUN chown build /output
+
+# make sure the Go compiler does not use any network access
+ENV GOPROXY off
+# disable cgo
+ENV CGO_ENABLED 0
+
 # run everything below as user build
 USER build
-WORKDIR $HOME
+WORKDIR /restic
+
+# by default, assume restic's source is in /restic, build for all architectures, and save the files to /output
+CMD go build -mod=vendor helpers/build-release-binaries/main.go
+
+# usage:
+# docker run --volume "$PWD/restic-0.9.3:/restic" --volume "$PWD/output:/output"
