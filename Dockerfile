@@ -12,6 +12,9 @@ ENV PATH="/usr/local/go/bin:/usr/local/bin:${PATH}"
 
 RUN download.sh
 
+# set default timezone
+ENV TZ Europe/Berlin
+
 # add and configure user
 ENV HOME /home/build
 RUN useradd -m -d $HOME -s /bin/bash build
@@ -34,7 +37,7 @@ USER build
 WORKDIR /restic
 
 # by default, assume restic's source is in /restic, build for all architectures, and save the files to /output
-CMD go build -mod=vendor helpers/build-release-binaries/main.go
+CMD go run -mod=vendor helpers/build-release-binaries/main.go
 
 # usage:
 # docker run --volume "$PWD/restic-0.9.3:/restic" --volume "$PWD/output:/output"
