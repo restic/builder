@@ -1,5 +1,5 @@
 This repository contains the build script and `Dockerfile` used to produce the
-binaries for each restic release starting at 0.6.1.
+binaries for each restic release starting at 0.9.3.
 
 Instructions
 ============
@@ -8,47 +8,14 @@ First, build the docker container:
 
     $ docker build -t restic/builder .
 
-Then run the build as follows, passing the restic source code as a `.tar.gz` file:
+Then run the build as follows, mounting the directory with the source code as `/restic` and putting the resulting files in the directory `output`:
 
-    $ docker run --rm --volume $PWD:/home/build restic/builder build.sh restic-0.9.2.tar.gz
-
-The binaries will be created in a sub-directory of the current directory, like this:
-
-    $ ls -1 restic-0.9.2-20180923-153802
-    restic_0.9.2_darwin_386.bz2
-    restic_0.9.2_darwin_amd64.bz2
-    restic_0.9.2_freebsd_386.bz2
-    restic_0.9.2_freebsd_amd64.bz2
-    restic_0.9.2_freebsd_arm.bz2
-    restic_0.9.2_linux_386.bz2
-    restic_0.9.2_linux_amd64.bz2
-    restic_0.9.2_linux_arm64.bz2
-    restic_0.9.2_linux_arm.bz2
-    restic_0.9.2_openbsd_386.bz2
-    restic_0.9.2_openbsd_amd64.bz2
-    restic-0.9.2.tar.gz
-    restic_0.9.2_windows_386.zip
-    restic_0.9.2_windows_amd64.zip
-    SHA256SUMS
+    $ mkdir output
+    $ docker run --volume "$PWD/restic-0.9.3:/restic" --volume "$PWD/output:/output"
 
 If all goes well then you've produced exactly the same binaries as in the official release.
 
-The container has the official Go compiler installed in `/usr/local/go`. After
-extracting the `tar.gz` into a temporary directory, the script `build.sh`
-builds the binaries by running `build.go` like this:
-
-    $ go run build.go --goos $os --goarch $arch --tempdir /tmp/gopath --output restic_$os_$arch
-
-Verifying Windows Binaries
---------------------------
-
-The Windows binaries are packed as a ZIP file, which unfortunately includes a
-time stamp, so you'll end up with different ZIP files than the original
-release. So in order to verify that the released binaries are indeed authentic,
-download the ZIP files, verify the authenticity (via `sha256sums` and `gpg`)
-then extract the EXE file. Rebuild the binaries using this docker container,
-extract the EXE file from the ZIP and you'll end up with two byte identical
-files.
+The container has the official Go compiler installed in `/usr/local/go`.
 
 Software
 ========
