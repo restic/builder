@@ -7,8 +7,11 @@ Instructions
 ***Note:** For more detailed instructions, reference the Reproducible Builds section of the [Developer Information](https://github.com/restic/restic/blob/master/doc/developer_information.rst).*
 
 First, clone (or update) this repo:
+
     $ git clone https://github.com/restic/builder.git
-    or 
+
+    or
+
     $ git pull
 
 Second, build the docker container:
