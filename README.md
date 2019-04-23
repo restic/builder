@@ -14,9 +14,10 @@ First, clone (or update) this repo:
 
     $ git pull
 
-Second, build the docker container:
+Second, pull the base image and build the docker container:
 
-    $ docker build -t restic/builder .
+    $ docker pull debian:stable
+    $ docker build --no-cache -t restic/builder .
 
 Next, download and extract the restic source code.
 
