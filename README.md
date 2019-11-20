@@ -4,7 +4,7 @@ binaries for each restic release starting at 0.9.3.
 Instructions
 ============
 
-***Note:** For more detailed instructions, reference the Reproducible Builds section of the [Developer Information](https://github.com/restic/restic/blob/master/doc/developer_information.rst).*
+**Note:** For more detailed instructions, reference the Reproducible Builds section of the [Developer Information](https://github.com/restic/restic/blob/master/doc/developer_information.rst).*
 
 First, clone (or update) this repo:
 
@@ -18,6 +18,10 @@ Second, pull the base image and build the docker container:
 
     $ docker pull debian:stable
     $ docker build --no-cache -t restic/builder .
+
+Maintainers may also publish the new image to Docker hub:
+
+    $ docker push restic/builder
 
 Next, download and extract the restic source code.
 

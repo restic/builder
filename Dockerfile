@@ -4,11 +4,13 @@
 FROM debian:stable
 
 RUN apt-get update
-RUN apt-get install -y --no-install-recommends ca-certificates wget bzip2 zip
+RUN apt-get install -y --no-install-recommends ca-certificates wget bzip2 zip gnupg
 
 ADD *.sh /usr/local/bin/
 RUN chmod 755 /usr/local/bin/*.sh
 ENV PATH="/usr/local/go/bin:/usr/local/bin:${PATH}"
+
+ADD linux_signing_key.pub .
 
 RUN download.sh
 

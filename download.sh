@@ -4,15 +4,19 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-latest="go1.12.4.linux-amd64.tar.gz"
-hash="d7d1f1f88ddfe55840712dc1747f37a790cbcaa448f6c9cf51bbe10aa65442f5"
+latest="1.13.4"
+file="go${latest}.linux-amd64.tar.gz"
+
+# import GPG key, can be downloaded here:
+# https://dl.google.com/dl/linux/linux_signing_key.pub
+# more info:
+# https://github.com/golang/go/issues/14739#issuecomment-324528605
+gpg --import linux_signing_key.pub
 
 # download and install Go
 cd /usr/local
-wget --quiet "https://golang.org/dl/${latest}"
-echo "${hash}  ${latest}" > hashes
-sha256sum -c hashes
+wget --quiet "https://dl.google.com/go/${file}"
+wget --quiet "https://dl.google.com/go/${file}.asc"
+gpg --verify "${file}.asc" "${file}"
 
-tar xf "${latest}"
-
-rm -f hashes "${latest}"
+tar xf "${file}"
