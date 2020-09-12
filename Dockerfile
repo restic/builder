@@ -29,8 +29,6 @@ RUN chown build /restic
 RUN mkdir /output
 RUN chown build /output
 
-# make sure the Go compiler does not use any network access
-ENV GOPROXY off
 # disable cgo
 ENV CGO_ENABLED 0
 
