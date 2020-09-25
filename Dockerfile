@@ -37,7 +37,7 @@ USER build
 WORKDIR /restic
 
 # by default, assume restic's source is in /restic, build for all architectures, and save the files to /output
-CMD go run -mod=vendor helpers/build-release-binaries/main.go
+CMD go run helpers/build-release-binaries/main.go
 
 # usage:
 # docker run --volume "$PWD/restic-0.9.3:/restic" --volume "$PWD/output:/output"
