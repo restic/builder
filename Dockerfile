@@ -18,16 +18,16 @@ RUN true \
 COPY download.sh /usr/local/bin/
 COPY linux_signing_key.pub .
 
-# install go compiler
-ENV PATH="/usr/local/go/bin:/usr/local/bin:${PATH}"
 # download and install go compiler
 RUN chmod 755 /usr/local/bin/download.sh && /usr/local/bin/download.sh
 
-# set default timezone
-ENV TZ Europe/Berlin
-
-# configure user home
-ENV HOME /home/build
+ENV \
+    # add go and local binaries to PATH
+    PATH="/usr/local/go/bin:/usr/local/bin:${PATH}" \
+    # set default timezone
+    TZ=Europe/Berlin \
+    # configure user home
+    HOME=/home/build
 
 RUN true \
     # add user
