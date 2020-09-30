@@ -3,31 +3,39 @@
 
 FROM debian:stable
 
-RUN apt-get update
-RUN apt-get install -y --no-install-recommends ca-certificates wget bzip2 zip gnupg
+RUN true \
+    # install packages
+    && apt-get update && apt-get install -y --no-install-recommends \
+        bzip2 \
+        ca-certificates \
+        gnupg \
+        wget \
+        zip \
+    # cleanup package lists to save space
+    && rm -rf /var/lib/apt/lists/*
 
-ADD *.sh /usr/local/bin/
-RUN chmod 755 /usr/local/bin/*.sh
-ENV PATH="/usr/local/go/bin:/usr/local/bin:${PATH}"
+# add go download script and gpg signature file
+COPY download.sh /usr/local/bin/
+COPY linux_signing_key.pub .
 
-ADD linux_signing_key.pub .
+# download and install go compiler
+RUN chmod 755 /usr/local/bin/download.sh && /usr/local/bin/download.sh
 
-RUN download.sh
+ENV \
+    # add go and local binaries to PATH
+    PATH="/usr/local/go/bin:/usr/local/bin:${PATH}" \
+    # set default timezone
+    TZ=Europe/Berlin \
+    # configure user home
+    HOME=/home/build
 
-# set default timezone
-ENV TZ Europe/Berlin
-
-# add and configure user
-ENV HOME /home/build
-RUN useradd -m -d $HOME -s /bin/bash build
-
-# create directory to hold the source code
-RUN mkdir /restic
-RUN chown build /restic
-
-# create directory to save the resulting files to
-RUN mkdir /output
-RUN chown build /output
+RUN true \
+    # add user
+    && useradd -m -d $HOME -s /bin/bash build \
+    # create directory to hold the source code
+    && mkdir /restic && chown build /restic \
+    # create directory to save the resulting files to
+    && mkdir /output && chown build /output
 
 # disable cgo
 ENV CGO_ENABLED 0
@@ -40,4 +48,4 @@ WORKDIR /restic
 CMD go run helpers/build-release-binaries/main.go
 
 # usage:
-# docker run --volume "$PWD/restic-0.9.3:/restic" --volume "$PWD/output:/output"
+# docker run --volume "$PWD/restic-0.10.0:/restic" --volume "$PWD/output:/output"

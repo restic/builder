@@ -20,3 +20,4 @@ wget --quiet "https://dl.google.com/go/${file}.asc"
 gpg --verify "${file}.asc" "${file}"
 
 tar xf "${file}"
+rm "${file}"
