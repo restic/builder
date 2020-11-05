@@ -4,7 +4,7 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-latest="1.15.2"
+latest="1.15.3"
 file="go${latest}.linux-amd64.tar.gz"
 
 # import GPG key, can be downloaded here:
