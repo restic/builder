@@ -14,14 +14,17 @@ First, clone (or update) this repo:
 
     $ git pull
 
-Second, pull the base image and build the docker container:
+Second, pull the base image and build the docker container using the required Go version:
 
+    $ GO_VERSION=1.20.3
     $ docker pull debian:stable
-    $ docker build --no-cache -t restic/builder .
+    $ docker build --no-cache -t restic/builder:${GO_VERSION} --build-arg GO_VERSION=${GO_VERSION} .
+    $ docker tag restic/builder:${GO_VERSION} restic/builder:latest
 
 Maintainers may also publish the new image to Docker hub:
 
-    $ docker push restic/builder
+    $ docker push restic/builder:${GO_VERSION}
+    $ docker push restic/builder:latest
 
 Next, download and extract the restic source code.
 
