@@ -4,8 +4,13 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-latest="1.19.5"
-file="go${latest}.linux-amd64.tar.gz"
+if [[ $# -ne 1 ]]; then
+    echo >&2 "Usage: download.sh GO_VERSION"
+    exit 1
+fi
+
+latest="$1"
+file="go${latest}.linux-arm64.tar.gz"
 
 # import GPG key, can be downloaded here:
 # https://dl.google.com/dl/linux/linux_signing_key.pub
