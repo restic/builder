@@ -10,7 +10,7 @@ if [[ $# -ne 1 ]]; then
 fi
 
 latest="$1"
-file="go${latest}.linux-arm64.tar.gz"
+file="go${latest}.linux-amd64.tar.gz"
 
 # import GPG key, can be downloaded here:
 # https://dl.google.com/dl/linux/linux_signing_key.pub
