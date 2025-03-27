@@ -19,7 +19,7 @@ RUN true \
 COPY download.sh /usr/local/bin/
 COPY linux_signing_key.pub .
 
-ARG GO_VERSION=1.22.4
+ARG GO_VERSION=1.24.1
 # download and install go compiler
 RUN chmod 755 /usr/local/bin/download.sh && /usr/local/bin/download.sh ${GO_VERSION}
 
